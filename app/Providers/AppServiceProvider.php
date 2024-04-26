@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Calendar;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,8 +23,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         $events = Calendar::all();
+        $user = Auth()->user();
+
         view()->share([
                 "events"=> $events,
+                "user"=> $user,
             ]);
     }
 }

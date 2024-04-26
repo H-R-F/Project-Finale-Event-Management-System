@@ -16,6 +16,8 @@
                         <h2>Description:</h2>
                         <p class="card-text text-sm">{{ $showEvent->description }}</p>
                     </div>
+
+                    
                     <form action="{{ route('event.pay', $showEvent->id) }}" method="post">
                         @csrf
                         <input type="hidden" name="event_id" value="{{ $showEvent->id }}">

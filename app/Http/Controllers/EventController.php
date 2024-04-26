@@ -14,73 +14,21 @@ use Stripe\Stripe;
 class EventController extends Controller
 {
     //
-
-
-    public function index(){
-        $user = User::where("id" , auth()->user()->id)->first();
-        $events = Calendar::where("user_id" , auth()->user()->id)->get();
-
-        return view('admin.event', compact('user', 'events'));
-    }
-
-
-    public function store(Request $request)
+    public function show(Calendar $event)
     {
-        request()->validate([
-            'name' => 'required',
-            'date' => 'required',
-            'localisation' => 'required',
-            // 'image' => 'required',
-            'categorie' => 'required',
-            'description' => 'required', 
-            'user_id' => 'required', 
-            // "users" => "required|array"
-        ]);
-        
-        // dd($request);
-        
-
-        $event = Event::create([
-            'name' => $request->name,
-            'date' => $request->date,
-            'localisation' => $request->localisation,
-            // 'image' => $request->image,
-            'categorie' => $request->categorie,
-            'description' => $request->description,
-            'user_id' => $request->user_id,
-        ]);
-        
-        return redirect(route('dashboard', absolute: false));
-    }
-
-    public function buy(Request $request, Event $event)
-    {
-        $user = Auth::user(); // Get the authenticated user
-
-        // Check if the user already has bought the event
-        if ($user->events()->where('event_id', $event->id)->exists()) {
-            return back()->with('error', 'You have already bought this event.');
-        }
-
-        // Attach the event to the user
-        $user->events()->attach($event->id);
-
-        return back()->with('success', 'Event purchased successfully!');
-    }
-
-    public function show(Calendar $event){
-        $showEvents = Calendar::where("id" , $event->id)->get();
+        $showEvents = Calendar::where("id", $event->id)->get();
         return view('home.event', compact('showEvents'));
     }
 
-    public function session(Request $request, $eventId){
+    public function session(Request $request, $eventId)
+    {
         // dd($eventId);
         if (!Auth::check()) {
-        // Handle unauthenticated user (e.g., redirect to login page)
-        return redirect()->route('login');
-    }
+            // Handle unauthenticated user (e.g., redirect to login page)
+            return redirect()->route('login');
+        }
 
-    $user = Auth::user();
+        $user = Auth::user();
         if (!$user->events()->where('calendar_id', $eventId)->exists()) {
             // return back()->with('error', 'You have already bought this event.');
             $user->events()->attach($eventId);
@@ -98,7 +46,7 @@ class EventController extends Controller
                         'currency'     => 'usd',
                         'product_data' => [
                             "name" => $request->name,
-                            "description"=> $request->description
+                            "description" => $request->description
                         ],
                         'unit_amount'  => $request->price, // amount should be in cents
                     ],
@@ -112,6 +60,4 @@ class EventController extends Controller
 
         return redirect()->away($session->url);
     }
-    
-
 }

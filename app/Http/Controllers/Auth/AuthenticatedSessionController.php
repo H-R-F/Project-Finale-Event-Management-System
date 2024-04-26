@@ -28,6 +28,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()->roleOfUser == 'organizer') {
+            return redirect('/profile');
+        }elseif ($request->user()->roleOfUser == 'attendee') {
+            return redirect('/');
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

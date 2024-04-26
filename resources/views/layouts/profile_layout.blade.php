@@ -338,7 +338,7 @@
             color: var(--text-color);
         }
 
-        .menu-links{
+        .menu-links {
             padding-left: 0;
         }
     </style>
@@ -365,18 +365,22 @@
                     <input type="text" placeholder="Search...">
                 </li>
                 <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="{{ route('event.index') }}">
-                            <i class="fa-solid fa-user text-gray-400 text-xl m-[1.3rem]"></i>
-                            <span class="text nav-text">Profile</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{{ route('calendar.index') }}">
-                            <i class="fa-regular fa-calendar text-gray-400 text-xl m-[1.3rem]"></i>
-                            <span class="text nav-text">Your Events</span>
-                        </a>
-                    </li>
+                    @if (Auth::check())
+                        @if (Auth::user()->roleOfUser == 'organizer')
+                            <li class="nav-link">
+                                <a href="{{ route('event.index') }}">
+                                    <i class="fa-solid fa-user text-gray-400 text-xl m-[1.3rem]"></i>
+                                    <span class="text nav-text">Profile</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="{{ route('calendar.index') }}">
+                                    <i class="fa-regular fa-calendar text-gray-400 text-xl m-[1.3rem]"></i>
+                                    <span class="text nav-text">Your Events</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
                     <li class="nav-link">
                         <a href="{{ route('profile.edit') }}">
                             <i class="fa-solid fa-gear text-gray-400 text-xl m-[1.2rem]"></i>

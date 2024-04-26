@@ -342,7 +342,7 @@
                 <div>
                     @if (Route::has('login'))
                         @auth
-                            <a class="text-decoration-none" href="{{ url('/admin') }}"
+                            <a class="text-decoration-none" href="{{ url('/profile') }}"
                                 class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                 <i class="fa-solid fa-user text-3xl text-white"></i>
                             </a>
