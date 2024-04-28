@@ -9,19 +9,28 @@ class CategorieController extends Controller
 {
     //
     public function allevents(){
-        return view("home.categorie.allevents");
+        $user = auth()->user();
+        $userEvents = $user->events;
+        return view("home.categorie.allevents", compact('userEvents'));
     }
     public function Concerts_Festival(){
-        // $Concerts_Festival
-        return view("home.categorie.Concerts&Festival");
+        $user = auth()->user();
+        $userEvents = $user->events;
+        return view("home.categorie.Concerts&Festival", compact('userEvents'));
     }
     public function Conference(){
-        return view("home.categorie.Conference");
+        $user = auth()->user();
+        $userEvents = $user->events;
+        return view("home.categorie.Conference", compact('userEvents'));
     }
     public function Spor(){
-        return view("home.categorie.Spor");
+        $user = auth()->user();
+        $userEvents = $user->events;
+        return view("home.categorie.Spor", compact('userEvents'));
     }
     public function Théâtre_Humour(){
-        return view("home.categorie.Théâtre&Humour");
+        $user = auth()->user();
+        $userEvents = $user->events;
+        return view("home.categorie.Théâtre&Humour", compact('userEvents'));
     }
 }

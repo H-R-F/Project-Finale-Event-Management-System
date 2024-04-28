@@ -255,7 +255,7 @@
             left: 0;
             width: 100%;
             height: 100px;
-            background: url("./image/wave.svg"); 
+            background: url("./image/wave.svg");
             background-size: 900px 100px;
         }
 
@@ -319,41 +319,87 @@
             <button type="button" class="navbar-burger" onclick="toggleMenuOpen()">
                 <span class="material-icons"><i class="fa-solid fa-bars text-2xl"></i></span>
             </button>
-            <h1 class="navbar-title text-2xl">logo</h1>
+            <a href="{{ route('home') }}" class="no-underline">
+                <h1 class="navbar-title text-2xl text-[#14ff72cb]">logo</h1>
+            </a>
             <nav class="navbar-menu">
-                <a class="lg:px-3" href="{{ route('allevents.index') }}">
-                    <button type="button" class="text-xl">events</button>
+                <a class="lg:px-3 no-underline" href="{{ route('allevents.index') }}">
+                    <button type="button" class="text-xl text-[#fff] hover:text-[#14ff72cb]">events</button>
                 </a>
-                <a class="lg:px-3" href="{{ route('Concerts_Festival.index') }}">
-                    <button type="button" class="text-xl">Concerts & Festival</button>
+                <a class="lg:px-3 no-underline" href="{{ route('Concerts_Festival.index') }}">
+                    <button type="button" class="text-xl text-[#fff] hover:text-[#14ff72cb]">Concerts & Festival</button>
                 </a>
-                <a class="lg:px-3" href="{{ route('Conference.index') }}">
-                    <button type="button" class="text-xl">Conference</button>
+                <a class="lg:px-3 no-underline" href="{{ route('Conference.index') }}">
+                    <button type="button" class="text-xl text-[#fff] hover:text-[#14ff72cb]">Conference</button>
                 </a>
-                <a class="lg:px-3" href="{{ route('Spor.index') }}">
-                    <button type="button" class="text-xl">Théâtre & Humour</button>
+                <a class="lg:px-3 no-underline" href="{{ route('Théâtre_Humour.index') }}">
+                    <button type="button" class="text-xl text-[#fff] hover:text-[#14ff72cb]">Théâtre & Humour</button>
                 </a>
-                <a class="lg:px-3" href="{{ route('Théâtre_Humour.index') }}">
-                    <button type="button" class="text-xl">Sport</button>
+                <a class="lg:px-3 no-underline" href="{{ route('Spor.index') }}">
+                    <button type="button" class="text-xl text-[#fff] hover:text-[#14ff72cb]">Sport</button>
                 </a>
             </nav>
             <div class="flex gap-x-6 items-center">
-                <i class="fa-solid fa-bag-shopping text-3xl"></i>
+                <button class="btn" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                    <i class="fa-solid fa-bag-shopping text-3xl text-[#14ff72cb] hover:text-[#14ff728b]"></i>
+                </button>
+                {{-- offcanvas --}}
+                <div class="offcanvas offcanvas-end z-20" data-bs-scroll="true" tabindex="-1"
+                    id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                    <div class="offcanvas-header">
+                        <h2 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+                            Your Card
+                        </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            @if (isset($userEvents))
+                            <div class="flex flex-col gap-3">
+                                @foreach ($userEvents as $event)
+                                    <div class="bg-white rounded-lg shadow-lg overflow-hidden lg:w-[23vw] w-[64.5vw]">
+                                        <img class="w-full h-48 object-cover object-center"
+                                            src="{{ asset('storage/img/' . $event->image) }}" alt="{{ $event->name }}">
+                                        <div class="p-6">
+                                            <h2 class="text-xl font-semibold text-gray-800">{{ $event->name }}</h2>
+                                            <p class="text-gray-600 mt-2">{{ $event->localisation }}</p>
+                                            <p class="text-gray-600">{{ $event->price }} Dh</p>
+                                            <div class="mt-4 flex justify-between items-center">
+
+                                                <form action="{{ route('event.destroy', $event) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger w-24 h-10">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @else
+                                <p>emptu</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                {{-- end offcanvas --}}
                 <div>
                     @if (Route::has('login'))
                         @auth
                             <a class="text-decoration-none" href="{{ url('/profile') }}"
                                 class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                <i class="fa-solid fa-user text-3xl text-white"></i>
+                                <i class="fa-solid fa-user text-3xl text-[#14ff72cb] hover:text-[#14ff728b]"></i>
                             </a>
                         @else
-                            <a class="text-decoration-none" href="{{ route('login') }}"
+                            <a class="text-decoration-none no-underline text-[#fff] hover:text-[#14ff72cb]" href="{{ route('login') }}"
                                 class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                 Log in
                             </a>
 
                             @if (Route::has('register'))
-                                <a class="text-decoration-none" href="{{ route('register') }}"
+                                <a class="text-decoration-none no-underline text-[#fff] hover:text-[#14ff72cb]" href="{{ route('register') }}"
                                     class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                     Register
                                 </a>

@@ -27,7 +27,7 @@ Route::middleware('auth', 'attendee')->group(function () {
     Route::get('/Conference', [CategorieController::class, 'Conference'])->name('Conference.index');
     Route::get('/Spor', [CategorieController::class, 'Spor'])->name('Spor.index');
     Route::get('/Théâtre Humour', [CategorieController::class, 'Théâtre_Humour'])->name('Théâtre_Humour.index');
-    Route::get('/event/show/{event}', [EventController::class, 'show'])->name('event.show');
+    Route::post('/event/show/{event}', [EventController::class, 'show'])->name('event.show');
     Route::post('/event/pay/{showEvent}', [EventController::class, 'session'])->name('event.pay');
 });
 

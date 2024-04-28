@@ -17,6 +17,18 @@ class AdminController extends Controller
         $user = User::where("id" , auth()->user()->id)->first();
         $events = Calendar::where("user_id" , auth()->user()->id)->get();
 
-        return view('admin.event', compact('user', 'events'));
+        // $user = auth()->user();
+        // $userEvents = $user->events;
+
+        // return view('admin.event', compact('user', 'events', 'userEvents'));
+
+        if (auth()->check()) {
+            $user = auth()->user();
+            $userEvents = $user->events;
+            return view('admin.event', compact('user', 'events', 'userEvents'));
+        } else {
+            // User is not authenticated
+            return view('home.home', compact('events'));
+        }
     }
 }

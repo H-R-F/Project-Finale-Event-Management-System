@@ -25,6 +25,7 @@
             width: 98vw;
             overflow: hidden;
             position: relative;
+            z-index: -1;
         }
 
         .slider .list .item {
@@ -70,6 +71,7 @@
             grid-template-rows: 40px;
             gap: 5px;
             margin-top: 20px;
+            /* z-index: 1; */
         }
 
         .slider .list .item .button button {
@@ -418,7 +420,7 @@
                     </div>
 
 
-                {{-- </div> --}}
+                </div>
 
 
                 <script src="app.js"></script>

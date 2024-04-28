@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Calendar;
-use Faker\Factory;
+use App\Models\Event;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class YourModelSeeder extends Seeder
+class eventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,6 @@ class YourModelSeeder extends Seeder
     public function run(): void
     {
         //
-        // factory(Calendar::class, 10)->create();
-
-        Calendar::factory(10)->create();
-
+        Calendar::factory(36)->create();
     }
 }

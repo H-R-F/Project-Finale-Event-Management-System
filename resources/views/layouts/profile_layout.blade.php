@@ -25,9 +25,9 @@
 
         :root {
             /* ===== Colors ===== */
-            --body-color: #E4E9F7;
+            --body-color: #14ff723e;
             --sidebar-color: #FFF;
-            --primary-color: #695CFE;
+            --primary-color: #14ff72cb;
             --primary-color-light: #F6F5FF;
             --toggle-color: #DDD;
             --text-color: #707070;
@@ -352,8 +352,10 @@
                     <!--<img src="logo.png" alt="">-->
                 </span>
                 <div class="text logo-text">
-                    <span class="name">Codinglab</span>
-                    <span class="profession">Web developer</span>
+                    <a href="{{ route('home') }}" class="no-underline">
+                        <span class="name  text-black">Logo</span>
+                    </a>
+                    {{-- <span class="profession">Web developer</span> --}}
                 </div>
             </div>
             <i class='bx bx-chevron-right toggle'></i>

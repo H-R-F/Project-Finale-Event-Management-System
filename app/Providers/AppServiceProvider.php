@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Calendar;
 use App\Models\User;
+use App\Models\UserEvent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

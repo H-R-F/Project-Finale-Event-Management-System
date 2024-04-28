@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calendar;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\UserEvent;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,10 @@ class EventController extends Controller
     public function show(Calendar $event)
     {
         $showEvents = Calendar::where("id", $event->id)->get();
-        return view('home.event', compact('showEvents'));
+        $user = auth()->user();
+        $userEvents = $user->events;
+
+        return view('home.event', compact('showEvents', 'userEvents'));
     }
 
     public function session(Request $request, $eventId)
