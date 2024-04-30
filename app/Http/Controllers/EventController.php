@@ -64,4 +64,6 @@ class EventController extends Controller
 
         return redirect()->away($session->url);
     }
+
+    
 }

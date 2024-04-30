@@ -29,6 +29,7 @@ Route::middleware('auth', 'attendee')->group(function () {
     Route::get('/Théâtre Humour', [CategorieController::class, 'Théâtre_Humour'])->name('Théâtre_Humour.index');
     Route::post('/event/show/{event}', [EventController::class, 'show'])->name('event.show');
     Route::post('/event/pay/{showEvent}', [EventController::class, 'session'])->name('event.pay');
+    Route::delete('/uservent/delete/{event}', [CategorieController::class, 'destroy'])->name('userevent.destroy');
 });
 
 

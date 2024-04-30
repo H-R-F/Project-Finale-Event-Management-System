@@ -20,7 +20,7 @@
 </style>
 <div>
     <div class='lg:h-[42vh] flex justify-center items-center gap-x-3 text-white imagebg'>
-        <div class="z-10 flex lg:flex-row flex-col justify-between w-[80vw] lg:h-[42vh] h-[70vh] lg:py-0 py-8 gap-3">
+        <div class="z-10 flex lg:flex-row flex-col lg:items-center justify-between w-[80vw] lg:h-[42vh] h-[70vh] lg:py-0 py-8 gap-3">
             <div class="text-center">
                 <h1 class="pb-4 border-b-2 border-[#14ff72cb]">136</h1>
                 <h1 class="text-3xl font-bold">ÉVÉNEMENTS ORGANISÉS</h1>

@@ -1,58 +1,153 @@
-<h1 class="text-center pt-3">Our Events</h1>
-<div class="px-3 py-4">
-    <ul class="nav nav-tabs flex justify-center items-center pt-2" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="allEvents-tab" data-bs-toggle="tab" data-bs-target="#allEvents-tab-pane"
-                type="button" role="tab" aria-controls="allEvents-tab-pane" aria-selected="true">All
-                Events</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="ConcertsFestivals-tab" data-bs-toggle="tab"
-                data-bs-target="#ConcertsFestivals-tab-pane" type="button" role="tab"
-                aria-controls="ConcertsFestivals-tab-pane" aria-selected="false">Concerts & Festivals</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="TheatreHumour-tab" data-bs-toggle="tab"
-                data-bs-target="#TheatreHumour-tab-pane" type="button" role="tab"
-                aria-controls="TheatreHumour-tab-pane" aria-selected="false">Théâtre & Humour</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="Conference-tab" data-bs-toggle="tab" data-bs-target="#Conference-tab-pane"
-                type="button" role="tab" aria-controls="Conference-tab-pane"
-                aria-selected="false">Conference</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="Sport-tab" data-bs-toggle="tab" data-bs-target="#Sport-tab-pane" type="button"
-                role="tab" aria-controls="Sport-tab-pane" aria-selected="false">Sport</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="Others-tab" data-bs-toggle="tab" data-bs-target="#Others-tab-pane"
-                type="button" role="tab" aria-controls="Others-tab-pane" aria-selected="false">Others</button>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="allEvents-tab-pane" role="tabpanel" aria-labelledby="allEvents-tab"
-            tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4 ">
+<style>
+    .card {
+        --blur: 16px;
+        --size: clamp(300px, 50vmin, 600px);
+        width: var(--size);
+        aspect-ratio: 4 / 3;
+        position: relative;
+        border-radius: 2rem;
+        overflow: hidden;
+        color: #000;
+        transform: translateZ(0);
+    }
+
+    .card__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(calc(1 + (var(--hover, 0) * 0.25))) rotate(calc(var(--hover, 0) * -5deg));
+        transition: transform 0.2s;
+    }
+
+    .card__footer {
+        padding: 0 1.5rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: red;
+        display: grid;
+        grid-template-row: auto auto;
+        gap: 0.5ch;
+        background: hsl(0 0% 100% / 0.5);
+        backdrop-filter: blur(var(--blur));
+        height: 30%;
+        align-content: center;
+    }
+
+    .card__action {
+        position: absolute;
+        aspect-ratio: 1;
+        width: calc(var(--size) * 0.15);
+        bottom: 30%;
+        right: 1.5rem;
+        transform: translateY(50%) translateY(calc((var(--size) * 0.4))) translateY(calc(var(--hover, 0) * (var(--size) * -0.4)));
+        background: purple;
+        display: grid;
+        place-items: center;
+        border-radius: 0.5rem;
+        background: hsl(0 0% 100% / 0.5);
+        /*   backdrop-filter: blur(calc(var(--blur) * 0.5)); */
+        transition: transform 0.2s;
+    }
+
+    .card__action svg {
+        aspect-ratio: 1;
+        width: 50%;
+    }
+
+    .card__footer span:nth-of-type(1) {
+        font-size: calc(var(--size) * 0.065);
+    }
+
+    .card__footer span:nth-of-type(2) {
+        font-size: calc(var(--size) * 0.035);
+    }
+
+    .card:is(:hover, :focus-visible) {
+        --hover: 1;
+    }
+
+    /* Style adjustments */
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: inline;
+    }
+
+    .glacier-background {
+        /* background-color: hsl(0, 0%, 7%) border-radius: 1rem; */
+
+        /* max-width: 300px;
+        min-height: 200px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        /* max-width: 500px;
+        height: 300px; */
+        padding: 35px;
+
+        border: 1px solid rgba(255, 255, 255, .25);
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.45);
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+        backdrop-filter: blur(15px);
+    }
+</style>
+
+
+
+<div class=" p-8 mx-10 my-4 glacier-background">
+
+    <h1 class="text-center pt-3 text-black font-semibold text-5xl pb-3">Our Events</h1>
+    <div class="mx-auto w-full">
+        <div class="flex justify-center items-center gap-x-3">
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">
+                All Events
+            </button>
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">
+                Concerts & Festivals
+            </button>
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">Théâtre
+                & Humour</button>
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">Conference</button>
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">Sport</button>
+            <button
+                class="tab-button bg-[#14ff72cb] text-black font-semibold px-8 py-2.5 rounded-md focus:outline-none focus:ring focus:ring-[#14ff7251]">Others</button>
+        </div>
+        <div class="tab-content active">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4 ">
                 @foreach ($events as $event)
                     @if ($event->id <= 6)
-                        <form  action="{{ route('event.show', $event) }}" method="POST">
+                        <form action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
                                         </div>
-                                    </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
                                 </div>
                             </button>
                         </form>
@@ -60,31 +155,48 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="tab-pane fade" id="ConcertsFestivals-tab-pane" role="tabpanel"
-            aria-labelledby="ConcertsFestivals-tab" tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4">
+        <div class="tab-content">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4">
                 @php $count = 0; @endphp
                 @foreach ($events as $event)
-                    @if ($event->categorie == "Concerts & Festivals" && $count < 6)
+                    @if ($event->categorie == 'Concerts & Festivals' && $count < 6)
                         <form style="width: 25rem;" action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
+                                        </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                {{-- <div class="card w-[18rem] h-[28rem]">
+                                <img class="w-[18rem] h-[18rem]"
+                                    src="{{ asset('storage/img/' . $event->image) }}" alt="">
+                                <div class="card-body px-4">
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex justify-between">
+                                            <h3 class="text-xl">{{ $event->name }}</h3>
+                                            <h3 class="text-xl">{{ $event->price }} Dh</h3>
+                                        </div>
+                                        <div class="flex justify-between pb-3">
+                                            <h3 class="text-xl">{{ $event->dateStart }}</h3>
+                                            <h3 class="text-xl">{{ $event->timeStart }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
                             </button>
                         </form>
                         @php $count++; @endphp
@@ -92,31 +204,48 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="tab-pane fade" id="TheatreHumour-tab-pane" role="tabpanel" aria-labelledby="TheatreHumour-tab"
-            tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4">
+        <div class="tab-content">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4">
                 @php $count = 0; @endphp
                 @foreach ($events as $event)
-                    @if ($event->categorie == "Théâtre & Humour" && $count < 6)
+                    @if ($event->categorie == 'Théâtre & Humour' && $count < 6)
                         <form style="width: 25rem;" action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
+                                        </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                {{-- <div class="card w-[18rem] h-[28rem]">
+                                <img class="w-[18rem] h-[18rem]"
+                                    src="{{ asset('storage/img/' . $event->image) }}" alt="">
+                                <div class="card-body px-4">
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex justify-between">
+                                            <h3 class="text-xl">{{ $event->name }}</h3>
+                                            <h3 class="text-xl">{{ $event->price }} Dh</h3>
+                                        </div>
+                                        <div class="flex justify-between pb-3">
+                                            <h3 class="text-xl">{{ $event->dateStart }}</h3>
+                                            <h3 class="text-xl">{{ $event->timeStart }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
                             </button>
                         </form>
                         @php $count++; @endphp
@@ -124,31 +253,48 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="tab-pane fade" id="Conference-tab-pane" role="tabpanel" aria-labelledby="Conference-tab"
-            tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4">
+        <div class="tab-content">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4">
                 @php $count = 0; @endphp
                 @foreach ($events as $event)
-                    @if ($event->categorie == "Conference" && $count < 6)
+                    @if ($event->categorie == 'Conference' && $count < 6)
                         <form style="width: 25rem;" action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
+                                        </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                {{-- <div class="card w-[18rem] h-[28rem]">
+                                <img class="w-[18rem] h-[18rem]"
+                                    src="{{ asset('storage/img/' . $event->image) }}" alt="">
+                                <div class="card-body px-4">
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex justify-between">
+                                            <h3 class="text-xl">{{ $event->name }}</h3>
+                                            <h3 class="text-xl">{{ $event->price }} Dh</h3>
+                                        </div>
+                                        <div class="flex justify-between pb-3">
+                                            <h3 class="text-xl">{{ $event->dateStart }}</h3>
+                                            <h3 class="text-xl">{{ $event->timeStart }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
                             </button>
                         </form>
                         @php $count++; @endphp
@@ -156,30 +302,48 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="tab-pane fade" id="Sport-tab-pane" role="tabpanel" aria-labelledby="Sport-tab" tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4">
+        <div class="tab-content">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4">
                 @php $count = 0; @endphp
                 @foreach ($events as $event)
-                    @if ($event->categorie == "Sport" && $count < 6)
+                    @if ($event->categorie == 'Sport' && $count < 6)
                         <form style="width: 25rem;" action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
+                                        </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                {{-- <div class="card w-[18rem] h-[28rem]">
+                                <img class="w-[18rem] h-[18rem]"
+                                    src="{{ asset('storage/img/' . $event->image) }}" alt="">
+                                <div class="card-body px-4">
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex justify-between">
+                                            <h3 class="text-xl">{{ $event->name }}</h3>
+                                            <h3 class="text-xl">{{ $event->price }} Dh</h3>
+                                        </div>
+                                        <div class="flex justify-between pb-3">
+                                            <h3 class="text-xl">{{ $event->dateStart }}</h3>
+                                            <h3 class="text-xl">{{ $event->timeStart }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
                             </button>
                         </form>
                         @php $count++; @endphp
@@ -187,31 +351,48 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="tab-pane fade" id="Others-tab-pane" role="tabpanel" aria-labelledby="Others-tab"
-            tabindex="0">
-            <div class="flex flex-wrap justify-center items-center gap-3 p-4">
+        <div class="tab-content">
+            <div class=" flex flex-wrap justify-center items-center gap-3 p-4">
                 @php $count = 0; @endphp
                 @foreach ($events as $event)
-                    @if ($event->categorie == "Autres" && $count < 6)
+                    @if ($event->categorie == 'Autres' && $count < 6)
                         <form style="width: 25rem;" action="{{ route('event.show', $event) }}" method="POST">
                             @csrf
                             <button>
-                                <div class="card w-[18rem] h-[28rem]">
-                                    <img class="w-[18rem] h-[18rem]" src="{{ asset('storage/img/' . $event->image) }}" alt="">
-                                    <div class="card-body px-4">
-                                        <div class="flex flex-col gap-3">
-                                            <div class="flex justify-between">
-                                                <h3 class="text-xl">{{ $event->name }}</h3>
-                                                <h3 class="text-xl">{{ $event->price }} Dh</h3>
-                                            </div>
-                                            <div class="flex justify-between pb-3">
-                                                <h3 class="text-xl">{{ $event->dateStart }}</h3>
-                                                <h3 class="text-xl">{{ $event->timeStart }}</h3>
-                                            </div>
+                                <div class="card">
+                                    <img src="{{ asset('storage/img/' . $event->image) }}"
+                                        alt="balloon with an emoji face" class="card__img">
+                                    <span class="card__footer">
+                                        <div class="flex items-center justify-between pb-2">
+                                            <span class="text-xl">{{ $event->name }}</span>
+                                            <span class="text-xl font-semibold">{{ $event->price }} Dh</span>
+                                        </div>
+                                        <h5 class="text-xs"><i class="fa-solid fa-location-dot"></i>
+                                            {{ $event->localisation }} Dh</h5>
+                                    </span>
+                                    <span class="card__action">
+                                        <svg viewBox="0 0 448 512" title="play">
+                                            <path
+                                                d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                {{-- <div class="card w-[18rem] h-[28rem]">
+                                <img class="w-[18rem] h-[18rem]"
+                                    src="{{ asset('storage/img/' . $event->image) }}" alt="">
+                                <div class="card-body px-4">
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex justify-between">
+                                            <h3 class="text-xl">{{ $event->name }}</h3>
+                                            <h3 class="text-xl">{{ $event->price }} Dh</h3>
+                                        </div>
+                                        <div class="flex justify-between pb-3">
+                                            <h3 class="text-xl">{{ $event->dateStart }}</h3>
+                                            <h3 class="text-xl">{{ $event->timeStart }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
                             </button>
                         </form>
                         @php $count++; @endphp
@@ -219,12 +400,29 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="w-full flex justify-center items-center">
-            <button class="bg-[#14ff72cb] px-9 py-2 rounded-md font-semibold">
-                See More
-            </button>
-        </div>
-
+    </div>
+    <div class="w-full flex justify-center items-center">
+        <button class="bg-[#14ff72cb] px-10 py-3 rounded-sm font-semibold">
+            See More
+        </button>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabButtons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach((btn) => btn.classList.remove("bg-green-500"));
+                tabContents.forEach((content) => content.classList.remove("active"));
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add("bg-green-500");
+                tabContents[index].classList.add("active");
+            });
+        });
+    });
+</script>

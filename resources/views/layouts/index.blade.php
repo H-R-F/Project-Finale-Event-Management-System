@@ -17,7 +17,7 @@
         }
 
         body {
-            background: #3b3d43;
+            background: black;
         }
 
         button {
@@ -190,7 +190,7 @@
         .footer {
             position: relative;
             width: 100%;
-            background: #000;
+            background: #19191c;;
             min-height: 100px;
             padding: 20px 50px;
             display: flex;
@@ -309,7 +309,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-black">
     <header class="">
         {{-- <h1>logo</h1> --}}
 
@@ -320,7 +320,7 @@
                 <span class="material-icons"><i class="fa-solid fa-bars text-2xl"></i></span>
             </button>
             <a href="{{ route('home') }}" class="no-underline">
-                <h1 class="navbar-title text-2xl text-[#14ff72cb]">logo</h1>
+                <h1 class="navbar-title text-2xl text-white">Event<span class="text-[#14ff72cb]">Lik</span></h1>
             </a>
             <nav class="navbar-menu">
                 <a class="lg:px-3 no-underline" href="{{ route('allevents.index') }}">
@@ -368,9 +368,8 @@
                                             <p class="text-gray-600">{{ $event->price }} Dh</p>
                                             <div class="mt-4 flex justify-between items-center">
 
-                                                <form action="{{ route('event.destroy', $event) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
+                                                <form action="{{ route('userevent.destroy', $event) }}" method="POST">
+                                                    @method('DELETE')  @csrf
                                                     <button class="btn btn-danger w-24 h-10">Delete</button>
                                                 </form>
                                             </div>
@@ -379,7 +378,7 @@
                                 @endforeach
                             </div>
                             @else
-                                <p>emptu</p>
+                                <p>empty</p>
                             @endif
                         </div>
                     </div>
@@ -447,13 +446,12 @@
             </ul>
             <ul class="menu">
                 <li class="menu__item"><a class="menu__link" href="#">Home</a></li>
-                <li class="menu__item"><a class="menu__link" href="#">About</a></li>
-                <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
-                <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
-                <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
-
+                <li class="menu__item"><a class="menu__link" href="#">Concerts & Festival</a></li>
+                <li class="menu__item"><a class="menu__link" href="#">Conference</a></li>
+                <li class="menu__item"><a class="menu__link" href="#">Théâtre & Humour</a></li>
+                <li class="menu__item"><a class="menu__link" href="#">Sport</a></li>
             </ul>
-            <p>&copy;2021 Nadine Coelho | All Rights Reserved</p>
+            <p>&copy;2024 Achraf BenSabir| All Rights Reserved</p>
         </footer>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
